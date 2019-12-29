@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  node:
+    image: node:latest
+    networks:
+      - interne
+      - treafikNetwork
+    working_dir: /home/node/app
+    environment:
+      - NODE_ENV=dev
+    volumes:
+      - ./:/home/node/app
+    ports:
+      - 4000:4000
+    command: "yarn start"
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=treafikNetwork
+      - traefik.http.routers.node.rule=Host(`graphql.labonnefabrique.fr`) && PathPrefix(`/apollo`)
+      - "traefik.http.routers.node.entrypoints=websecure"
+      - "traefik.http.routers.node.tls.certresolver=mydnschallenge"
+
+networks:
+  treafikNetwork:
+    external:
+      name: treafikNetwork
+  interne:
+    external:
+      name: interne
