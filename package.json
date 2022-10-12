@@ -2,7 +2,7 @@
   "name": "apollo-lbf",
   "description": "",
   "dependencies": {
-    "apollo-server": "2.1.0",
+    "apollo-server": "2.25.4",
     "graphql": "14.0.2",
     "lodash": "4.17.15",
     "nodemon": "2.0.2",
